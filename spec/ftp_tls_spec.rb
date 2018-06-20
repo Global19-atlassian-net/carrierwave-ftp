@@ -26,9 +26,10 @@ describe CarrierWave::Storage::FTP do
 
   it 'opens/closes a secure ftp connection to the given host' do
     ftp = double(:ftp_connection)
-    expect(Net::FTP).to receive(:new).and_return(ftp)
+    expect(Net::FTP).to receive(:new).
+      with(nil, hash_including(ssl: true)).
+      and_return(ftp)
     expect(ftp).to receive(:sendcmd)
-    expect(ftp).to receive(:ssl_context=)
     expect(ftp).to receive(:connect).with('ftp.testcarrierwave.dev', 21)
     expect(ftp).to receive(:login).with('test_user', 'test_passwd')
     expect(ftp).to receive(:passive=).with(true)
@@ -48,8 +49,9 @@ describe CarrierWave::Storage::FTP do
 
     it 'opens/closes a secure ftp connection to the given host' do
       ftp = double(:ftp_connection)
-      expect(Net::FTP).to receive(:new).and_return(ftp)
-      expect(ftp).to receive(:ssl_context=)
+      expect(Net::FTP).to receive(:new).
+        with(nil, hash_including(ssl: true)).
+        and_return(ftp)
       expect(ftp).to receive(:connect).with('ftp.testcarrierwave.dev', 21)
       expect(ftp).to receive(:login).with('test_user', 'test_passwd')
       expect(ftp).to receive(:passive=).with(true)

@@ -111,9 +111,6 @@ module CarrierWave
         def ftp_conn
           if @uploader.ftp_tls
             ftp = ExFTPTLS.new
-            ftp.ssl_context = DoubleBagFTPS.create_ssl_context(
-              verify_mode: OpenSSL::SSL::VERIFY_NONE
-            )
           else
             ftp = ExFTP.new
           end
