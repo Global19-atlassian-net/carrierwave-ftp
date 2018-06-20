@@ -125,7 +125,7 @@ module CarrierWave
 
           yield ftp
         ensure
-          ftp.quit
+          ftp.quit if ftp
         end
       end
     end
